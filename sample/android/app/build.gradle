@@ -8,7 +8,7 @@ if (localPropertiesFile.exists()) {
 
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
-    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+    //throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -48,18 +48,20 @@ android {
         applicationId "com.auth0.sample"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders['auth0Domain'] = "@string/com_auth0_domain"
-        manifestPlaceholders['auth0Scheme'] = "@string/com_auth0_scheme"
+        manifestPlaceholders['auth0Domain'] = "dev-ker2bji88mxeis77.us.auth0.com"
+        manifestPlaceholders['auth0Scheme'] = "demo"
         testOptions {
             animationsDisabled = true
             buildConfigField "String", "USER_EMAIL", "\"$System.env.USER_EMAIL\""
             buildConfigField "String", "USER_PASSWORD", "\"$System.env.USER_PASSWORD\""
         }
+    
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -77,6 +79,10 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.squareup.okio:okio-jvm:3.5.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.20"
+    implementation 'com.auth0.android:auth0:2.4.0'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test:runner:1.5.2'
